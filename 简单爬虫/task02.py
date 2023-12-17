@@ -13,7 +13,7 @@ with open("urls.txt", "r") as f:
 
 # 表头
 columns = ["金额", "房屋户型", "所在楼层", "建筑面积", "户型结构", "套内面积", "建筑类型", "房屋朝向", "建筑结构", "装修情况",
-           "梯户比例", "配备电梯"]
+           "梯户比例", "配备电梯", "所在区域"]
 attrs = pandas.DataFrame(columns=columns)  # 新建空DataFrame 将li数据存入这个字典
 
 for i in urls:
@@ -36,6 +36,12 @@ for i in urls:
         if total is not None:
             total = total.text
             lis_attrs["金额"] = total
+
+        # 所在区域
+        areaName = html.find(name="div", attrs={"class": "areaName"})
+        if areaName is not None:
+            areaName = areaName.find(name="a").text
+            lis_attrs["所在区域"] = areaName
 
         # 找到所有属性 添加到attrs表中
         try:

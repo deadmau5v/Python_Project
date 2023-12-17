@@ -8,7 +8,7 @@ import bs4
 
 for i in range(71):
     # 设置url
-    url = "https://cm.lianjia.com/ershoufang/pg" + str(i + 1)
+    url = "https://zhuzhou.lianjia.com/ershoufang/pg" + str(i + 1)
 
     # 发送请求
     res = requests.get(url)
