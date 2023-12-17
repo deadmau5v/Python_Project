@@ -21,4 +21,4 @@ data["配备电梯"] = ["有" if i == "有" else "无" for i in data["配备电�
 data["梯户比例"] = data["梯户比例"].fillna("其他")
 data["建筑结构"] = data["建筑结构"].fillna("其他")
 
-data.to_csv("data_cleared.csv", index=False)
+data.to_csv("./data_cleared.csv", index=False)

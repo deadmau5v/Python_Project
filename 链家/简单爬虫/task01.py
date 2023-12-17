@@ -23,15 +23,14 @@ for i in range(71):
     lis = ul.find_all(name="li", attrs={"class": "LOGCLICKDATA"})
 
     # 循环li标签
-    for i in lis:
+    for l in lis:
         # 找到a标签 提取链接
-        url = i.find(name="a")["href"]
+        url = l.find(name="a")["href"]
 
         # 打印提取到的链接
         print(url)
 
         # 把链接保存到 urls.txt
-        with open("urls.txt", "a") as f:
+        with open("./urls.txt", "a") as f:
             # 写入链接 并换行
             f.write(url + "\n")
-

@@ -7,7 +7,7 @@ import requests
 import bs4
 import pandas
 
-with open("urls.txt", "r") as f:
+with open("./urls.txt", "r") as f:
     # 读取爬到的url
     urls = f.readlines()
 
@@ -55,4 +55,4 @@ for i in urls:
         print(lis_attrs)  # 打印一下
 
 # 保存到 data.csv文件
-attrs.to_csv("data.csv")
+attrs.to_csv("./data.csv")
