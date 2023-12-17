@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    {#  导入 tailwind css 框架  #}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+{% include "header.html" with title=title %}
+
+<div style="margin-top: 130px; margin-bottom: 45px" class="flex justify-center items-center">
+    {% include page %}
+</div>
+
+{% include "footer.html" %}
+
+</body>
+</html>
