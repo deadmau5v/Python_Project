@@ -26,4 +26,3 @@ pie.add("", pie_data)
 pie.render("echarts4.html")
 
 print("完成")
-
