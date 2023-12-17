@@ -1,3 +1,7 @@
+"""
+弃用
+"""
+
 import json
 from multiprocessing import Process
 

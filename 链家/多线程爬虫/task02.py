@@ -1,3 +1,7 @@
+"""
+弃用
+"""
+
 import asyncio
 
 import aiohttp

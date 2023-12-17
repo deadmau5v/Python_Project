@@ -2,3 +2,5 @@
 .idea
 .gitignore
 .git
+.tmp
+.test

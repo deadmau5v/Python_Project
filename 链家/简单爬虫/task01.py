@@ -31,6 +31,6 @@ for i in range(71):
         print(url)
 
         # 把链接保存到 urls.txt
-        with open("./urls.txt", "a") as f:
+        with open("./.tmp/urls.txt", "a") as f:
             # 写入链接 并换行
             f.write(url + "\n")
