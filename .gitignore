@@ -2,12 +2,21 @@
 .idea
 .gitignore
 .git
-.tmp
+
 .test
 .mypy_cache
+
+# 缓存文件
+.tmp
 *.pyc
 *.pyo
 *.pyd
 __pycache__
 db.sqlite3
+
+# 打开中的文件
 *.docx#
+*.doc#
+*.xlsx#
+*.pptx#
+*.pdf#
