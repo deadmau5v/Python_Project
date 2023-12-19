@@ -57,9 +57,7 @@ def echarts1(request):
 
 
 def echarts2(request):
-    data1 = df[["金额", "建筑面积"]]
-    data1 = data1[data1["金额"] < 500]
-    data1 = data1[data1["建筑面积"] < 500]
+    data1 = df[["金额", "建筑面积", "所在区域"]]
     scatter = pyecharts.charts.Scatter()
     scatter.add_xaxis(data1["金额"])
     scatter.add_yaxis("二手房价格/面积", data1["建筑面积"])
@@ -67,11 +65,25 @@ def echarts2(request):
         xaxis_opts=pyecharts.options.global_options.AxisOpts(name="价格"),
         yaxis_opts=pyecharts.options.global_options.AxisOpts(name="面积")
     )
-    scatter.render("./templates/echarts2.html")
+    tab = pyecharts.charts.Tab()
+    tab.add(scatter, "全部")
+    for i in set(data1["所在区域"].tolist()):
+        scatter = pyecharts.charts.Scatter()
+        data2 = data1[data1["所在区域"] == i]
+        scatter.add_xaxis(data2["金额"])
+        scatter.add_yaxis("二手房价格/面积", data2["建筑面积"].tolist())
+        scatter.set_global_opts(
+            xaxis_opts=pyecharts.options.global_options.AxisOpts(name="价格"),
+            yaxis_opts=pyecharts.options.global_options.AxisOpts(name="面积")
+        )
+        tab.add(scatter, i)
+    tab.render("./templates/echarts2.html")
+
     data = {
         "title": "房产面积价格关系图",
         "page": "echarts2.html"
     }
+
     return render(request, "base.html", data)
 
 
@@ -85,7 +97,22 @@ def echarts3(request):
         yaxis_opts=pyecharts.options.global_options.AxisOpts(name="房源数量"),
         xaxis_opts=pyecharts.options.global_options.AxisOpts(name="装修类型")
     )
-    bar.render("./templates/echarts3.html")
+
+    tab = pyecharts.charts.Tab()
+    tab.add(bar, "全部")
+    for i in set(df["所在区域"].tolist()):
+        data2 = df[df["所在区域"] == i]
+        data3 = data2[["装修情况"]].value_counts()
+        columns = [i[0] for i in data3.keys()]
+        bar = pyecharts.charts.Bar()
+        bar.add_xaxis(columns)
+        bar.add_yaxis("数量", data3.to_list())
+        bar.set_global_opts(
+            yaxis_opts=pyecharts.options.global_options.AxisOpts(name="房源数量"),
+            xaxis_opts=pyecharts.options.global_options.AxisOpts(name="装修类型")
+        )
+        tab.add(bar, i)
+    tab.render("./templates/echarts3.html")
     data = {
         "title": "装修情况分布图",
         "page": "echarts3.html"
@@ -94,14 +121,13 @@ def echarts3(request):
 
 
 def echarts4(request):
-    data1 = df[["配备电梯"]].value_counts()
-    data1 = data1.to_list()
-    pie_data = [("无", data1[0]), ("有", data1[1])]
+    data1 = df[["所在区域"]].value_counts()
+    address = ([i[0] for i in data1.index])
     pie = pyecharts.charts.Pie()
-    pie.add("", pie_data)
+    pie.add("房源数量", list(zip(address, data1.to_list())))
     pie.render("./templates/echarts4.html")
     data = {
-        "title": "电梯配套情况分布图",
+        "title": "房源数量分布图",
         "page": "echarts4.html"
     }
     return render(request, "base.html", data)
