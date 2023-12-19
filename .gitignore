@@ -5,3 +5,9 @@
 .tmp
 .test
 .mypy_cache
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+db.sqlite3
+*.docx#
