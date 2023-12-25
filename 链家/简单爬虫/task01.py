@@ -6,7 +6,7 @@ task01: 爬虫 获取URL
 import requests
 import bs4
 
-for i in range(71):
+for i in range(100):
     # 设置url
     url = "https://zhuzhou.lianjia.com/ershoufang/pg" + str(i + 1)
 

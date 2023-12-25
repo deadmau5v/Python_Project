@@ -14,9 +14,11 @@ with open("./.tmp/urls.txt", "r") as f:
     urls = f.readlines()
 
 # 表头
-columns = ["金额", "房屋户型", "所在楼层", "建筑面积", "户型结构", "套内面积", "建筑类型", "房屋朝向", "建筑结构", "装修情况",
+columns = ["金额", "房屋户型", "所在楼层", "建筑面积", "户型结构", "套内面积", "建筑类型", "房屋朝向", "建筑结构",
+           "装修情况",
            "梯户比例", "配备电梯", "所在区域"]
 attrs = pandas.DataFrame(columns=columns)  # 新建空DataFrame 将li数据存入这个字典
+
 
 def t(i):
     "判断一下i是否为空 防止请求空行"
@@ -57,6 +59,7 @@ def t(i):
         attrs.loc[len(attrs)] = lis_attrs
         # print(lis_attrs)  # 打印一下
 
+
 with futures.ThreadPoolExecutor(max_workers=20) as executor:
     fs = []
     for i in urls:
@@ -66,7 +69,7 @@ with futures.ThreadPoolExecutor(max_workers=20) as executor:
     while len(fs) != len(done):
         os.system("clear")
         done, _ = futures.wait(fs, timeout=0)
-        print(f"已完成任务: {len(done)} 未完成任务: {len(fs)} 进度为: {len(done)/len(fs)*100:.2f}%")
+        print(f"已完成任务: {len(done)} 未完成任务: {len(fs)} 进度为: {len(done) / len(fs) * 100:.2f}%")
         time.sleep(0.5)
 
 os.system("clear")
