@@ -3,3 +3,4 @@ django==4.2.0
 bs4
 lxml==4.9.3
 pandas
+pymysql

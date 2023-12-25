@@ -2,9 +2,20 @@
 task01: 爬虫 获取URL
 """
 
-
 import requests
 import bs4
+import pymysql
+
+# 数据库
+mysql = pymysql.connect(host="127.0.0.1", port=3306, user="root", passwd="123456")
+mysql.autocommit(True)  # 自动提交
+cursor = mysql.cursor()
+
+# 创建链接数据库 创立初始表
+cursor.execute("create database if not exists lianjia")
+cursor.execute("use lianjia")
+
+cursor.execute("create table if not exists urls (url varchar(255))")
 
 for i in range(100):
     # 设置url
@@ -30,7 +41,10 @@ for i in range(100):
         # 打印提取到的链接
         print(url)
 
-        # 把链接保存到 urls.txt
-        with open("./.tmp/urls.txt", "a") as f:
-            # 写入链接 并换行
-            f.write(url + "\n")
+        # 把链接保存到 urls 数据库
+        cursor.execute("insert ignore into urls values ('%s')" % url)
+
+
+# 断开数据库
+cursor.close()
+mysql.close()

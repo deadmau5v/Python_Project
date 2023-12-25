@@ -5,8 +5,10 @@ task03: 数据清洗
 
 import numpy
 import pandas
+import pymysql
 
-data = pandas.read_csv("./.tmp/data.csv", index_col=False)
+mysql = pymysql.Connect(host="127.0.0.1", user="root", password="root", database="lianjia")
+data = pandas.read_sql("SELECT * FROM lianjia.data", con=mysql)
 
 # 将无数据统一化
 data = data.replace("暂无数据", numpy.nan)
@@ -28,4 +30,4 @@ data["配备电梯"] = ["有" if i == "有" else "无" for i in data["配备电�
 data["梯户比例"] = data["梯户比例"].fillna("其他")
 data["建筑结构"] = data["建筑结构"].fillna("其他")
 
-data.to_csv("./.tmp/data_cleared.csv", index=False)
+data.to_sql("data_clean", con=mysql, if_exists="replace", index=False)
