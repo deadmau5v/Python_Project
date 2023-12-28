@@ -9,6 +9,7 @@ import bs4
 import pandas
 from concurrent import futures
 
+
 with open("./.tmp/urls.txt", "r") as f:
     # 读取爬到的url
     urls = f.readlines()
