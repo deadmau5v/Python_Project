@@ -13,6 +13,7 @@
 *.pyd
 __pycache__
 db.sqlite3
+*.json
 
 # 打开中的文件
 *.docx#
