@@ -62,8 +62,8 @@ def get_info():
                 break
 
         data = {
-            'email': 'xxxxxxxxxxx',
-            'password': 'xxxxxxxxxxx',
+            'email': os.environ.get("TAG_EMAIL"),
+            'password': os.environ.get("TAG_PASSWORD"),
             'captcha_code': code,
             'client': client
         }
